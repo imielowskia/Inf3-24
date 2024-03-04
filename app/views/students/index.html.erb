@@ -2,13 +2,19 @@
 
 <h1>Students</h1>
 
+
+<div class="row bg-secondary bg-gradient bg-opacity-25">
+  <div class="col"><strong>Name:</strong></div>
+  <div class="col"><strong>Sname:</strong></div>
+  <div class="col"><strong>Indeks:</strong></div>
+  <div class="col"><strong>Group:</strong></div>
+  <div class="col"></div>
+</div>
+
 <div id="students">
   <% @students.each do |student| %>
     <%= render student %>
-    <p>
-      <%= link_to "Show this student", student %>
-    </p>
   <% end %>
 </div>
 
-<%= link_to "New student", new_student_path %>
+<%= link_to "New student", new_student_path, class: "btn btn-sm btn-primary" %>

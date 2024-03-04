@@ -2,13 +2,16 @@
 
 <h1>Groups</h1>
 
+<div class="row bg-primary bg-gradient bg-opacity-25">
+  <div class="col"><strong>Name:</strong></div>
+  <div class="col"><strong>Shortname:</strong></div>
+  <div class="col"><strong>Students list:</strong></div>
+  <div class="col"></div>
+</div>
 <div id="groups">
   <% @groups.each do |group| %>
     <%= render group %>
-    <p>
-      <%= link_to "Show this group", group %>
-    </p>
   <% end %>
 </div>
 
-<%= link_to "New group", new_group_path %>
+<%= link_to "New group", new_group_path, class: "btn btn-sm btn-primary" %>

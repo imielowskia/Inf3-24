@@ -1,19 +1,15 @@
 <div id="<%= dom_id group %>">
-  <p>
-    <strong>Name:</strong>
-    <%= group.name %>
-  </p>
 
-  <p>
-    <strong>Shortname:</strong>
-    <%= group.shortname %>
-  </p>
-
-  <p>
-    <strong>Students list:</strong>
-    <% group.students.each do |student| %>
-      <%= student.name %> <%= student.sname %><br>
-    <% end %>
-  </p>
+  <div class="row bg-info bg-gradient bg-opacity-25 ">
+    <div class="col"><%= group.name %></div>
+    <div class="col"><%= group.shortname %></div>
+    <div class="col">
+      <% group.students.each do |student| %>
+        <%= student.name %> <%= student.sname %><br>
+      <% end %>
+    </div>
+    <div class="col"><%= link_to "Show this group", group, class: "btn btn-sm btn-primary" %></div>
+  </div>
 
 </div>
+

@@ -1,22 +1,11 @@
 <div id="<%= dom_id student %>">
-  <p>
-    <strong>Name:</strong>
-    <%= student.name %>
-  </p>
 
-  <p>
-    <strong>Sname:</strong>
-    <%= student.sname %>
-  </p>
-
-  <p>
-    <strong>Indeks:</strong>
-    <%= student.indeks %>
-  </p>
-
-  <p>
-    <strong>Group:</strong>
-    <%= student.group.name %>
-  </p>
+  <div class="row bg-warning bg-gradient bg-opacity-25">
+    <div class="col"><%= student.name %></div>
+    <div class="col"><%= student.sname %></div>
+    <div class="col"><%= student.indeks %></div>
+    <div class="col"><%= student.group.name %></div>
+    <div class="col"><%= link_to "Show this student", student, class: "btn btn-sm btn-primary" %></div>
+  </div>
 
 </div>
