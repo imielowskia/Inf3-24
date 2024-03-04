@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Fields</h1>
+
+<div class="row bg-primary bg-gradient bg-opacity-50">
+  <div class="col"><strong>Name:</strong></div>
+  <div class="col"></div>
+</div>
+
+<div id="fields">
+  <% @fields.each do |field| %>
+    <%= render field %>
+  <% end %>
+</div>
+
+<%= link_to "New field", new_field_path, class: "btn btn-sm btn-primary" %>
