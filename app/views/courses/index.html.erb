@@ -1,0 +1,18 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Courses</h1>
+
+<div class="row bg-info bg-gradient bg-opacity-50">
+  <div class="col"><strong>Name:</strong></div>
+  <div class="col"><strong>Ects:</strong></div>
+  <div class="col"><strong>Egzam:</strong></div>
+  <div class="col"><strong>Field:</strong></div>
+  <div class="col"></div>
+</div>
+<div id="courses">
+  <% @courses.each do |course| %>
+    <%= render course %>
+  <% end %>
+</div>
+
+<%= link_to "New course", new_course_path, class: "btn btn-sm btn-primary" %>

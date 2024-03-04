@@ -1,0 +1,11 @@
+<div id="<%= dom_id course %>">
+
+  <div class="row bg-secondary bg-gradient bg-opacity-10">
+    <div class="col"><%= course.name %></div>
+    <div class="col"><%= course.ects %></div>
+    <div class="col"><%= if course.egzam then "TAK" else "END" end %></div>
+    <div class="col"><%= course.field.name %></div>
+    <div class="col"><%= link_to "Show this course", course, class: "btn btn-sm btn-primary" %></div>
+  </div>
+
+</div>
