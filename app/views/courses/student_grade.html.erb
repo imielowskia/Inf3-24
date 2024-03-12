@@ -1,0 +1,13 @@
+<%= form_with url: grade_student_save_path do |form| %>
+
+<h2> Ocena <%= @student.name %> <%= @student.sname %> z <%= @course.name %> </h2>
+
+  <div>
+    <%= form.label 'Ocena', style: "display: block" %>
+    <%= form.number_field :grade, value: @grade.grade, in: 2.0..5.0, step: 0.5  %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

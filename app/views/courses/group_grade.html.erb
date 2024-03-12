@@ -1,0 +1,22 @@
+<div class="container bg-secondary bg-gradient bg-opacity-10">
+  <div class="row">
+    <div class="col-4"><h2><%= @course.name %></h2></div>
+  </div>
+  <div class="row">
+    <div class="col-4"><h3>Oceny</h3></div>
+    <div class="col-2"></div>
+  </div>
+  <%= form_with url: save_group_path do |form| %>
+    <% @students.each do |s| %>
+    <div class="row border-bottom">
+      <div class="col">
+        <%= @grades[s.id]['name'] %> <%= @grades[s.id]['sname'] %>
+      </div>
+      <div class="col-2">
+        <%= form.number_field 'oceny['+s.id.to_s+']', value: @grades[s.id]['grade'] %>
+      </div>
+    </div>
+    <% end %>
+    <%= form.submit "Zapisz", class: "btn btn-sm btn-primary" %>
+  <% end %>
+</div>

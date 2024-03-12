@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: %i[ show edit update destroy ]
+  before_action :set_course, only: %i[ show edit update destroy grade group_grade]
 
   # GET /courses or /courses.json
   def index
@@ -17,6 +17,52 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
+  end
+
+  def grade
+    @group = Group.find(params[:group_id])
+    @students = @group.students
+    @grades = []
+    @students.each do |s|
+      xgrade = s.grades.where(course_id: @course.id).first
+      if !xgrade then xgr = ' ' else xgr = xgrade.grade end
+      @grades[s.id] = {'name'=>s.name, 'sname'=>s.sname, 'grade'=>xgr}
+    end
+  end
+
+  def group_grade
+    @group = Group.find(params[:group_id])
+    @students = @group.students
+    @grades = []
+    @students.each do |s|
+      xgrade = s.grades.where(course_id: @course.id).first
+      if !xgrade then xgr = ' ' else xgr = xgrade.grade end
+      @grades[s.id] = {'name'=>s.name, 'sname'=>s.sname, 'grade'=>xgr}
+    end
+  end
+
+  def group_save
+    @course = Course.find(params[:id])
+    @group = Group.find(params[:group_id])
+    grades = params['oceny']
+    @group.students.each do |student|
+      @xgr = Grade.where(course_id: @course.id, student_id: student.id).first
+      if @xgr
+        @xgr.course_id = @course.id
+        @xgr.student_id = student.id
+        @xgr.grade = grades[student.id.to_s].to_f
+        @xgr.save!
+      else
+        @xgr = Grade.new
+        @xgr.course_id = @course.id
+        @xgr.student_id = student.id
+        @xgr.grade = grades[student.id.to_s].to_f
+        @xgr.save!
+      end
+
+
+    end
+    redirect_to grade_course_path(@course.id, @group.id)
   end
 
   # POST /courses or /courses.json
