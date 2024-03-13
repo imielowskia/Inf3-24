@@ -6,6 +6,12 @@
     <div class="col"><%= student.indeks %></div>
     <div class="col"><%= student.group.name %></div>
     <div class="col"><%= student.group.field.name %></div>
+    <div class="col">
+      <% student.courses.each do |course| %>
+        <%= course.name %><br>
+      <% end %>
+    </div>
+
     <div class="col"><%= link_to "Show this student", student, class: "btn btn-sm btn-primary" %></div>
   </div>
 

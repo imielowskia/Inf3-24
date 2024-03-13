@@ -13,7 +13,7 @@
         <%= @grades[s.id]['name'] %> <%= @grades[s.id]['sname'] %>
       </div>
       <div class="col-2">
-        <%= form.number_field 'oceny['+s.id.to_s+']', value: @grades[s.id]['grade'] %>
+        <%= form.number_field 'oceny['+s.id.to_s+']', value: @grades[s.id]['grade'], in: 2.0..5.0, step: 0.5 %>
       </div>
     </div>
     <% end %>

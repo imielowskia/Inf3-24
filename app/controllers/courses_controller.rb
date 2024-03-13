@@ -44,23 +44,16 @@ class CoursesController < ApplicationController
   def group_save
     @course = Course.find(params[:id])
     @group = Group.find(params[:group_id])
-    grades = params['oceny']
+    oceny = params['oceny']
     @group.students.each do |student|
-      @xgr = Grade.where(course_id: @course.id, student_id: student.id).first
-      if @xgr
-        @xgr.course_id = @course.id
-        @xgr.student_id = student.id
-        @xgr.grade = grades[student.id.to_s].to_f
-        @xgr.save!
-      else
-        @xgr = Grade.new
-        @xgr.course_id = @course.id
-        @xgr.student_id = student.id
-        @xgr.grade = grades[student.id.to_s].to_f
-        @xgr.save!
+      if student.courses.where(id: @course.id).count()>0
+        student.courses.destroy(@course.id)
       end
-
-
+      @xgr = Grade.new
+      @xgr.course_id = @course.id
+      @xgr.student_id = student.id
+      @xgr.grade = oceny[student.id.to_s].to_f
+      @xgr.save
     end
     redirect_to grade_course_path(@course.id, @group.id)
   end
