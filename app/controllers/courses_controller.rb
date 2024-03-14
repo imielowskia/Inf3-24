@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: %i[ show edit update destroy grade group_grade]
+  before_action :set_course, only: %i[ show edit update destroy grade group_grade nogroup_grade]
 
   # GET /courses or /courses.json
   def index
@@ -56,6 +56,10 @@ class CoursesController < ApplicationController
       @xgr.save
     end
     redirect_to grade_course_path(@course.id, @group.id)
+  end
+
+  def nogroup_grade
+    @group = Group.find(params[:group_id])
   end
 
   # POST /courses or /courses.json

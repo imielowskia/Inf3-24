@@ -5,6 +5,7 @@
     <div class="col-4"><h2><%= @course.name %></h2></div>
     <div class="col-2"><%= link_to "Edit", edit_course_path(@course), class: "btn btn-sm btn-primary"%></div>
     <div class="col-2"><%= link_to "Back to courses", courses_path, class: "btn btn-sm btn-primary" %></div>
+    <div class="col-2"><%= button_to "Destroy this course", @course, method: :delete, class: "btn btn-sm btn-primary" %></div>
   </div>
   <div class="row bg-secondary bg-gradient bg-opacity-25">
       <div class="col-sm-4"><h5><%= @course.field.name %></h5></div>
@@ -12,16 +13,14 @@
       <div class="col-sm-2"><h5>Egzamin: <%= @course.egzam %></h5></div>
   </div>
   <% @course.groups.each do |group| %>
+    <%= turbo_frame_tag 'CG-'+@course.id.to_s+'-'+group.id.to_s do %>
     <div class="row bg-secondary bg-gradient bg-opacity-10 border-bottom">
     <div class="col-4"><h6><%= group.name %></h6></div>
-    <div class="col-2"><%= link_to 'Oceny', grade_course_path(@course.id, group.id), class: "btn btn-sm btn-primary" %> </div>
+    <div class="col-2"></div>
+    <div class="col-2"><%= link_to 'Oceny', grade_course_path(@course.id, group.id), data:{turbo_frame: 'CG-'+@course.id.to_s+'-'+group.id.to_s}, class: "btn btn-sm btn-primary" %> </div>
+    </div>
+    <div class="row">
     </div>
   <% end %>
-</div>
-
-<div>
-
-
-
-  <%= button_to "Destroy this course", @course, method: :delete %>
+  <% end %>
 </div>

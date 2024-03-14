@@ -5,18 +5,21 @@
     <div class="col-2"><%= link_to "Edit", edit_course_path(@course), class: "btn btn-sm btn-primary"%></div>
     <div class="col-2"><%= link_to "Back to courses", courses_path, class: "btn btn-sm btn-primary" %></div>
   </div>
-  <div class="row">
-    <div class="col-4"><h3>Oceny</h3></div>
-    <div class="col-2"></div>
-    <div class="col-2"><%= link_to 'Oceń', grade_group_path(@course.id, @group.id), class: "btn btn-sm btn-primary" %> </div>
-  </div>
-  <% @students.each do |s| %>
-    <div class="row border-bottom">
-      <div class="col">
-        <%= @grades[s.id]['name'] %> <%= @grades[s.id]['sname'] %>
+  <%= turbo_frame_tag 'CG-'+@course.id.to_s+'-'+@group.id.to_s do %>
+      <div class="row bg-secondary bg-gradient bg-opacity-10 border-bottom">
+        <div class="col-4"><h6><%= @group.name %></h6></div>
+        <div class="col-2"><h6>Oceny</h6></div>
+        <div class="col-2"><%= link_to 'Oceń', grade_group_path(@course.id, @group.id), data:{turbo_frame: 'CG-'+@course.id.to_s+'-'+@group.id.to_s}, class: "btn btn-sm btn-primary" %> </div>
+        <div class="col-2"><%= link_to 'Ukryj', nograde_group_path(@course.id, @group.id), data:{turbo_frame: 'CG-'+@course.id.to_s+'-'+@group.id.to_s}, class: "btn btn-sm btn-primary" %> </div>
       </div>
-      <div class="col-2"><%= @grades[s.id]['grade'] %> </div>
-
-    </div>
+    <% @students.each do |s| %>
+      <div class="row border-bottom">
+        <div class="col">
+          <%= @grades[s.id]['name'] %> <%= @grades[s.id]['sname'] %>
+        </div>
+        <div class="col-2"><%= @grades[s.id]['grade'] %> </div>
+      </div>
+    <% end %>
   <% end %>
+
 </div>
