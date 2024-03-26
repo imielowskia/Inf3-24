@@ -3,19 +3,10 @@
   <div class="row bg-info bg-gradient bg-opacity-25 ">
     <div class="col"><%= group.name %></div>
     <div class="col"><%= group.shortname %></div>
-    <div class="col">
-      <% group.students.each do |student| %>
-        <%= student.name %> <%= student.sname %><br>
-      <% end %>
-    </div>
-    <div class="col"><%= group.field.name %></div>
-    <div class="col">
-      <% group.courses.each do |course| %>
-        <%= course.name %><br>
-      <% end %>
-    </div>
-    <div class="col"><%= link_to "Show this group", group, class: "btn btn-sm btn-primary" %></div>
+    <div class="col"><%= link_to "Szczegóły", details_group_path(id: group.id), data: {turbo_frame: 'Gr'+group.id.to_s}, class: "btn btn-sm btn-primary" %></div>
   </div>
+  <%= turbo_frame_tag 'Gr'+group.id.to_s do%>
+  <% end %>
 
 </div>
 

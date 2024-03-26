@@ -1,0 +1,28 @@
+
+<%= turbo_frame_tag 'Gr'+@group.id.to_s do%>
+  <div class="row bg-primary bg-gradient bg-opacity-10 border-bottom ">
+    <div class="col-2 bg-primary bg-gradient bg-opacity-10">Kierunek:</div>
+    <div class="col"><%= @group.field.name %></div>
+    <div class="col-2 bg-primary bg-gradient bg-opacity-10">Lista studentów</div>
+    <div class="col">
+      <% @group.students.each do |student| %>
+        <%= student.name %> <%= student.sname %><br>
+      <% end %>
+    </div>
+    <div class="col-2 bg-primary bg-gradient bg-opacity-10">
+      <%= link_to 'Ukryj szczegóły', cleardetails_group_path(id: @group.id), data: {turbo_frame: 'Gr'+@group.id.to_s}, class: "btn btn-sm btn-primary" %>
+    </div>
+  </div>
+
+  <div class="row bg-primary bg-gradient bg-opacity-10 border-bottom">
+    <div class="col bg-primary bg-gradient bg-opacity-10">Kursy:</div>
+  </div>
+  <% @group.courses.each do |course| %>
+    <div class="row bg-primary bg-gradient bg-opacity-10 border-bottom">
+      <div class="col-4"><%= course.name %></div>
+      <div class="col-2"><%= link_to 'Listy obecności', attnds_group_path(id: @group.id, course_id: course.id), data: {turbo_frame: 'Attn-'+@group.id.to_s+'-'+course.id.to_s}, class: "btn btn-sm btn-primary" %></div>
+    </div>
+  <%= turbo_frame_tag 'Attn-'+@group.id.to_s+'-'+course.id.to_s do %>
+  <% end %>
+  <% end %>
+<% end %>

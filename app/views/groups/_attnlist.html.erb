@@ -1,0 +1,31 @@
+<div class="row border-bottom">
+  <div class="col-6"><h4><%= @course.name %> : obecności</h4> </div>
+  <div class="col-2">
+    <%= link_to 'Nowa lista', addattnds_group_path(id: @group.id, course_id: @course.id),  data: {turbo_frame: 'Add-'+@group.id.to_s+'-'+@course.id.to_s}, class: "btn btn-sm btn-primary" %>
+  </div>
+  <div class="col-2"><%= link_to 'Ukryj', clearattnds_group_path(id: @group.id, course_id: @course.id),data: {turbo_frame: 'Attn-'+@group.id.to_s+'-'+@course.id.to_s}, class: "btn btn-sm btn-primary" %> </div>
+</div>
+<table class="table table-sm">
+  <thead>
+  <th>Student</th>
+  <% @dates.each do |data| %>
+    <th> <%= data %></th>
+  <% end %>
+  </thead>
+  <tbody>
+  <% @students.each do |student| %>
+    <tr>
+      <td><%= student.IN %> </td>
+      <% @dates.each do |data| %>
+        <% if data.in?(@attnds[student.id]) %>
+          <td> X </td>
+        <% else %>
+          <td> - </td>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= turbo_frame_tag 'Add-'+@group.id.to_s+'-'+@course.id.to_s do %>
+<% end %>

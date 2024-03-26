@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: %i[ show edit update destroy ]
+  before_action :set_group, only: %i[ show edit update destroy details attnds addattnds saveattnds clearattnds cleardetails]
 
   # GET /groups or /groups.json
   def index
@@ -17,6 +17,53 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
+  end
+
+
+  def details
+
+  end
+
+
+  # metoda do budowania list obecności
+  def attnds
+    @course = Course.find(params[:course_id])
+    @students = @group.students
+    attndlist(@students)
+  end
+
+
+  # metoda do nowej listy obecności
+  def addattnds
+    @course = Course.find(params[:course_id])
+    @students = @group.students
+  end
+
+  def saveattnds
+    @course = Course.find(params[:course_id])
+    @students = @group.students
+    ids = params[:present]
+    data = params[:data]
+    for i in 0..ids.count()-1
+      student = Student.find(ids[i].to_i)
+      xattnd = Attendant.new
+      xattnd.student_id = student.id
+      xattnd.course_id = @course.id
+      xattnd.data = data
+      xattnd.save
+    end
+    attndlist(@students)
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
+  def clearattnds
+    @course = Course.find(params[:course_id])
+  end
+
+  def cleardetails
+
   end
 
   # POST /groups or /groups.json
@@ -59,6 +106,26 @@ class GroupsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
+    def attndlist(students)
+      @dates = []
+      students.each do |s|
+        s.attendants.where(course_id: @course.id).each do |a|
+          if !@dates.include?(a.data)
+            @dates<<a.data
+          end
+        end
+      end
+      @attnds = []
+      students.each do |s|
+        lista = []
+        s.attendants.where(course_id: @course.id).each do |a|
+          lista<<a.data
+        end
+        @attnds[s.id]=lista
+      end
+    end
+
     def set_group
       @group = Group.find(params[:id])
     end

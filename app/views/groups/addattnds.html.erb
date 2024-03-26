@@ -1,0 +1,20 @@
+<%= turbo_frame_tag 'Add-'+@group.id.to_s+'-'+@course.id.to_s do %>
+  <%= form_with url: saveattnds_group_path do |form| %>
+    <div class="row">
+      <div class="col-4"><h5>Lista obecności</h5></div>
+      <div class="col-2"><%= form.submit "Zapisz", class: "btn btn-sm btn-primary" %> </div>
+    </div>
+
+    <div class="row">
+      <div class="col-2">Data <%= form.date_field 'data', value: Date.today %> </div>
+    </div>
+    <% @group.students.each do |student| %>
+      <div class="row border-bottom">
+        <div class="form-check">
+          <label class="form-check-label"><%= student.IN %> </label>
+          <%= check_box_tag 'present[]', student.id, false, class: "form-check-input"%>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
